@@ -10,34 +10,39 @@ import time
 lists = []
 
 
-def get_project_path():     # 获取项目路径
+def get_project_path():  # 获取项目路径
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     return path
 
 
-def get_config(section, option):   # 获取config中的对应节，键的具体值,所以是双参数
+def get_config(section, option=None):  # 获取config中的对应节，键的具体值,所以是双参数
     path = get_project_path() + '/config/config.ini'
     conf = ConfigParser()
     conf.read(path, encoding='utf-8')
-    config_result = conf.get(section,option)
+    if option is not None:
+        config_result = conf.get(section, option)
+    else:
+        config_result = conf.items(section)
+        config_result = dict(config_result)
     # print(config_result)
     return config_result
 
 
-def get_download_path():    # 获取文件下载的储存地址
+def get_download_path():  # 获取文件下载的储存地址
     download_path = get_project_path() + '\\Download'
     return download_path
 
 
-def get_screen_size():      # 获取当前屏幕的大小
+def get_screen_size():  # 获取当前屏幕的大小
     x = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)  # 获得屏幕分辨率X轴
     y = win32api.GetSystemMetrics(win32con.SM_CYSCREEN)  # 获得屏幕分辨率Y轴
     return x, y
 
 
-def get_video_path():       # 获取录屏时的位置
+def get_video_path():  # 获取录屏时的位置
     video_path = get_project_path() + '\\video'
     return video_path
+
 
 # 读取userid信息
 def get_userid_info(userid):
@@ -92,16 +97,15 @@ def dict_gets(dict2, objkey, default='无目标', judge=0):
 
 
 # 优化数据格式，单个数据为string，多个为list
-def dict_get(self, dict2, objkey):
-    sd = self.dict_gets(dict2, objkey)
+def dict_get(dict2, objkey):
+    sd = dict_gets(dict2, objkey)
     if len(sd) == 1:
         return sd[0]
     else:
         return sd
 
 
-
-def read_file(self, path, sheetname, ranges, type=None):
+def read_file(path, sheetname, ranges, type=None):
     app = xw.App(visible=False, add_book=False)
     app.display_alerts = False
     app.screen_updating = False
@@ -117,7 +121,8 @@ def read_file(self, path, sheetname, ranges, type=None):
         app.quit()
         return value
 
-def new_file(self, testdir):
+
+def new_file(testdir):
     list = os.listdir(testdir)
     list.sort(key=lambda fn: os.path.getmtime(testdir + '\\' + fn))
     filetime = datetime.datetime.fromtimestamp(os.path.getmtime(testdir + '\\' + list[-1]))
@@ -126,7 +131,8 @@ def new_file(self, testdir):
     print("时间：" + filetime.strftime('%Y-%m-%d %H-%M-%S'))
     return filepath
 
-def createExcel(self):
+
+def createExcel():
     path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)) + '\\Log')
     path1 = self.new_file(path)
     app = xw.App(visible=False, add_book=False)
