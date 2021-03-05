@@ -2,20 +2,35 @@
 from selenium import webdriver
 import unittest
 from common.statics import get_download_path, get_screen_size, get_video_path
-import time
 from PIL import ImageGrab
 import numpy as np
 import cv2
 import os
 from selenium.webdriver.chrome.options import Options
+from pages.login_page import LoginPage
 import threading
 from common.log import log
+from common.statics import get_config
 download_path = get_download_path()
 video_path = get_video_path()
+admin = get_config('3.1_www')  # 读取注册管理员账号
+caps = {
+    'browserName': 'chrome',
+    'goog:loggingPrefs': {
+        'browser': 'ALL',
+        'driver': 'ALL',
+        'performance': 'ALL',
+    },
+    'goog:chromeOptions': {
+        'perfLoggingPrefs': {
+            'enableNetwork': True,
+        },
+        'w3c': False,
+    },
+}
 
 
-class MyTest(unittest.TestCase):
-
+class MyTest(unittest.TestCase, LoginPage):
     def setUp(self):
         """启动"""
         # option = webdriver.ChromeOptions()
@@ -32,10 +47,11 @@ class MyTest(unittest.TestCase):
         # chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
         # chrome_options.add_argument('--headless')
         chrome_options.add_argument("--window-size=%s,%s" % (x, y))  # 专门应对无头浏览器中不能最大化屏幕的方案
-        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(desired_capabilities=caps, options=chrome_options)
         self.driver.implicitly_wait(20)
         # self.driver.get(url)
         self.driver.maximize_window()
+        LoginPage(self.driver).login(admin['url'], admin['username'], admin['password'])
         #  启动录制程序
         name = video_path + '\\' + self._testMethodName     # 录制的文件名
         self.t = threading.Thread(target=self.video_record, args=(name,))
