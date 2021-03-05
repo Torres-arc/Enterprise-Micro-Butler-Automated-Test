@@ -1,25 +1,24 @@
 from common.base_page import BasePage
-from Location.login import LoginLoc
-from common.statics import get_config
+from Location.login_loc import LoginLoc
 from time import sleep
 
 
 class LoginPage(BasePage, LoginLoc):
-    # 登录操作
-    def login(self, url, name, password):
-        self._open(url)
+    def login(self, name, password):
+        # 登录操作
         sleep(2)
-        self.send_keys(self.find_Element(LoginLoc._input_username), name)
+        self.send_keys(self.find_Element(self._input_username), name)   # 输入用户名
         sleep(2)
-        self.send_keys(self.find_Element(LoginLoc._input_pword), password)
+        self.send_keys(self.find_Element(self._input_pword), password)  # 输入密码
         sleep(2)
-        self.click_element(self.find_Element(LoginLoc._btn_login))
+        self.click_element(self.find_Element(self._btn_login))  # 点击登录
         sleep(3)
         try:
             self.check_exist_in_page('旧版本下线通知')
+            self.click_element(self.find_Element(self._btn_switch))  # 点击“知道了”，进入新版
         except:
             pass
-        else:
-            print('122')
-            self.click_element(self.find_Element(LoginLoc._btn_switch))  # 点击“知道了”，进入新版
-            sleep(2)
+        # else:
+        #     print('122')
+        #     # self.click_element(self.find_Element(self._btn_switch))  # 点击“知道了”，进入新版
+        #     sleep(2)

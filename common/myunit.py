@@ -13,7 +13,8 @@ from common.log import log
 from common.statics import get_config
 download_path = get_download_path()
 video_path = get_video_path()
-admin = get_config('3.1_www')  # 读取注册管理员账号
+# admin = get_config('3.1_www')  # 管理账号
+url = get_config('3.1_www', 'url')  # 获取的URL
 caps = {
     'browserName': 'chrome',
     'goog:loggingPrefs': {
@@ -49,9 +50,9 @@ class MyTest(unittest.TestCase, LoginPage):
         chrome_options.add_argument("--window-size=%s,%s" % (x, y))  # 专门应对无头浏览器中不能最大化屏幕的方案
         self.driver = webdriver.Chrome(desired_capabilities=caps, options=chrome_options)
         self.driver.implicitly_wait(20)
-        # self.driver.get(url)
+        self.driver.get(url)
         self.driver.maximize_window()
-        LoginPage(self.driver).login(admin['url'], admin['username'], admin['password'])
+        # LoginPage(self.driver).login(admin['url'], admin['username'], admin['password'])
         #  启动录制程序
         name = video_path + '\\' + self._testMethodName     # 录制的文件名
         self.t = threading.Thread(target=self.video_record, args=(name,))

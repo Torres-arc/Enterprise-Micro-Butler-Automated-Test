@@ -11,8 +11,8 @@ from unittest import TestCase
 from BeautifulReport import BeautifulReport
 from BeautifulReport.BeautifulReport import HTML_IMG_TEMPLATE
 from PIL import ImageDraw, Image
-from pymouse import PyMouse
-from pykeyboard.windows import PyKeyboard
+# from pymouse import PyMouse
+# from pykeyboard.windows import PyKeyboard
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -29,9 +29,9 @@ class BasePage(object):
     #####################################################################################################
     # 页面操作方法
     # 打开网址并最大化
-    def _open(self, url):
-        self.driver.get(url)
-        self.driver.maximize_window()
+    # def _open(self, url):
+    #     self.driver.get(url)
+    #     self.driver.maximize_window()
 
     # 定位i至最新打开的窗口
     def switch_to_window(self):
@@ -61,23 +61,23 @@ class BasePage(object):
         return self.driver.get_window_size()['height']
 
     # 进行截图并输入测试报告，可对元素进行框选
-    def GetScreen(self, action, startTime=time.time(), rect=None):
-        # 定义截图存放目录的路径
-        screenpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)) + '\\img')
-        # 生成图片
-        png = time.strftime('%Y%m%d_%H%M%S', time.localtime(startTime)) + "_" + "_" + action + ".png"
-        self.driver.get_screenshot_as_file(screenpath + '\\' + png)
-        if rect is not None:
-            img = Image.open(screenpath + '\\' + png)
-            draw = ImageDraw.Draw(img)
-            draw.rectangle(rect, outline=(255, 0, 0))
-            img.save(screenpath + '\\' + png)
-        data = BeautifulReport.img2base(screenpath, png)
-        print("<p style='font-weight: bold; font-size: x-large; color: #0000CD; text-align: center'>"
-              "{}</p>".format(action))
-        print(HTML_IMG_TEMPLATE.format(data, data))
-        # print("<img src='" + data + "' width=600 />")
-        return png
+    # def GetScreen(self, action, startTime=time.time(), rect=None):
+    #     # 定义截图存放目录的路径
+    #     screenpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)) + '\\img')
+    #     # 生成图片
+    #     png = time.strftime('%Y%m%d_%H%M%S', time.localtime(startTime)) + "_" + "_" + action + ".png"
+    #     self.driver.get_screenshot_as_file(screenpath + '\\' + png)
+    #     if rect is not None:
+    #         img = Image.open(screenpath + '\\' + png)
+    #         draw = ImageDraw.Draw(img)
+    #         draw.rectangle(rect, outline=(255, 0, 0))
+    #         img.save(screenpath + '\\' + png)
+    #     data = BeautifulReport.img2base(screenpath, png)
+    #     print("<p style='font-weight: bold; font-size: x-large; color: #0000CD; text-align: center'>"
+    #           "{}</p>".format(action))
+    #     print(HTML_IMG_TEMPLATE.format(data, data))
+    #     # print("<img src='" + data + "' width=600 />")
+    #     return png
 
     # 获取元素的位置信息
     def locate_element(self, ele, zoom=1.25):
@@ -260,56 +260,56 @@ class BasePage(object):
             log().debug('{}-{}-{},获取多元素文本:{}'.format(str(module), str(lineno), name, str(texts)))
             return texts
 
-    # 操作键盘的方法
-    def control_keyboard(self, string):
-        """
-        :param string:需要输入的字符串
-        """
-        k = PyKeyboard()
-        k.type_string(string)
+    # # 操作键盘的方法
+    # def control_keyboard(self, string):
+    #     """
+    #     :param string:需要输入的字符串
+    #     """
+    #     k = PyKeyboard()
+    #     k.type_string(string)
+    #
+    # def tap_keyboard(self, type):
+    #     """
+    #     :param type: 按键类型 enter/shift
+    #     """
+    #     k = PyKeyboard()
+    #     if type == 'enter':
+    #         k.tap_key(k.enter_key)
+    #     if type == 'shift':
+    #         k.tap_key(k.shift_key)
 
-    def tap_keyboard(self, type):
-        """
-        :param type: 按键类型 enter/shift
-        """
-        k = PyKeyboard()
-        if type == 'enter':
-            k.tap_key(k.enter_key)
-        if type == 'shift':
-            k.tap_key(k.shift_key)
-
-    # 滚动屏幕方法
-    def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
-        """
-        :param element: 目标元素，即想要看到的元素
-        :param vertical: 每一步垂直滚动的距离， +向上，-向下
-        """
-        m = PyMouse()
-        while not element.is_displayed():
-            x_dim, y_dim = m.screen_size()
-            sleep(3)
-            if ele is None:
-                # m.move(x_dim // 2, y_dim // 2)
-                pass
-            else:
-                m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
-                       ele.location_once_scrolled_into_view.get('y') * zoom)
-            m.scroll(vertical=vertical)
-            sleep(3)
-
-    def force_scroll_screen(self, vertical=-10, ele=None, zoom=1):
-        """
-        :param element: 目标元素，即想要看到的元素
-        :param vertical: 每一步垂直滚动的距离， +向上，-向下
-        """
-        m = PyMouse()
-        if ele is None:
-            pass
-        else:
-            m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
-                   ele.location_once_scrolled_into_view.get('y') * zoom)
-        m.scroll(vertical=vertical)
-        sleep(3)
+    # # 滚动屏幕方法
+    # def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
+    #     """
+    #     :param element: 目标元素，即想要看到的元素
+    #     :param vertical: 每一步垂直滚动的距离， +向上，-向下
+    #     """
+    #     m = PyMouse()
+    #     while not element.is_displayed():
+    #         x_dim, y_dim = m.screen_size()
+    #         sleep(3)
+    #         if ele is None:
+    #             # m.move(x_dim // 2, y_dim // 2)
+    #             pass
+    #         else:
+    #             m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
+    #                    ele.location_once_scrolled_into_view.get('y') * zoom)
+    #         m.scroll(vertical=vertical)
+    #         sleep(3)
+    #
+    # def force_scroll_screen(self, vertical=-10, ele=None, zoom=1):
+    #     """
+    #     :param element: 目标元素，即想要看到的元素
+    #     :param vertical: 每一步垂直滚动的距离， +向上，-向下
+    #     """
+    #     m = PyMouse()
+    #     if ele is None:
+    #         pass
+    #     else:
+    #         m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
+    #                ele.location_once_scrolled_into_view.get('y') * zoom)
+    #     m.scroll(vertical=vertical)
+    #     sleep(3)
 
     # 重写js执行方法
     def execute_JS(self, js):
