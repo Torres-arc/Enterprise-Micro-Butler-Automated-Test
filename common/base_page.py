@@ -3,11 +3,9 @@ import json
 import os
 import sys
 import time
-
 from pathlib import Path
 from time import sleep
 from unittest import TestCase
-
 from BeautifulReport import BeautifulReport
 from BeautifulReport.BeautifulReport import HTML_IMG_TEMPLATE
 from PIL import ImageDraw, Image
@@ -278,38 +276,38 @@ class BasePage(object):
         if type == 'shift':
             k.tap_key(k.shift_key)
 
-    # # 滚动屏幕方法
-    # def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
-    #     """
-    #     :param element: 目标元素，即想要看到的元素
-    #     :param vertical: 每一步垂直滚动的距离， +向上，-向下
-    #     """
-    #     m = PyMouse()
-    #     while not element.is_displayed():
-    #         x_dim, y_dim = m.screen_size()
-    #         sleep(3)
-    #         if ele is None:
-    #             # m.move(x_dim // 2, y_dim // 2)
-    #             pass
-    #         else:
-    #             m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
-    #                    ele.location_once_scrolled_into_view.get('y') * zoom)
-    #         m.scroll(vertical=vertical)
-    #         sleep(3)
-    #
-    # def force_scroll_screen(self, vertical=-10, ele=None, zoom=1):
-    #     """
-    #     :param element: 目标元素，即想要看到的元素
-    #     :param vertical: 每一步垂直滚动的距离， +向上，-向下
-    #     """
-    #     m = PyMouse()
-    #     if ele is None:
-    #         pass
-    #     else:
-    #         m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
-    #                ele.location_once_scrolled_into_view.get('y') * zoom)
-    #     m.scroll(vertical=vertical)
-    #     sleep(3)
+    # 滚动屏幕方法
+    def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
+        """
+        :param element: 目标元素，即想要看到的元素
+        :param vertical: 每一步垂直滚动的距离， +向上，-向下
+        """
+        m = PyMouse()
+        while not element.is_displayed():
+            x_dim, y_dim = m.screen_size()
+            sleep(3)
+            if ele is None:
+                # m.move(x_dim // 2, y_dim // 2)
+                pass
+            else:
+                m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
+                       ele.location_once_scrolled_into_view.get('y') * zoom)
+            m.scroll(vertical=vertical)
+            sleep(3)
+
+    def force_scroll_screen(self, vertical=-10, ele=None, zoom=1):
+        """
+        :param element: 目标元素，即想要看到的元素
+        :param vertical: 每一步垂直滚动的距离， +向上，-向下
+        """
+        m = PyMouse()
+        if ele is None:
+            pass
+        else:
+            m.move(ele.location_once_scrolled_into_view.get('x') * zoom,
+                   ele.location_once_scrolled_into_view.get('y') * zoom)
+        m.scroll(vertical=vertical)
+        sleep(3)
 
     # 重写js执行方法
     def execute_JS(self, js):
