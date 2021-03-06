@@ -11,8 +11,8 @@ from unittest import TestCase
 from BeautifulReport import BeautifulReport
 from BeautifulReport.BeautifulReport import HTML_IMG_TEMPLATE
 from PIL import ImageDraw, Image
-# from pymouse import PyMouse
-# from pykeyboard.windows import PyKeyboard
+from pymouse import PyMouse
+from pykeyboard.windows import PyKeyboard
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -260,23 +260,23 @@ class BasePage(object):
             log().debug('{}-{}-{},获取多元素文本:{}'.format(str(module), str(lineno), name, str(texts)))
             return texts
 
-    # # 操作键盘的方法
-    # def control_keyboard(self, string):
-    #     """
-    #     :param string:需要输入的字符串
-    #     """
-    #     k = PyKeyboard()
-    #     k.type_string(string)
-    #
-    # def tap_keyboard(self, type):
-    #     """
-    #     :param type: 按键类型 enter/shift
-    #     """
-    #     k = PyKeyboard()
-    #     if type == 'enter':
-    #         k.tap_key(k.enter_key)
-    #     if type == 'shift':
-    #         k.tap_key(k.shift_key)
+    # 操作键盘的方法
+    def control_keyboard(self, string):
+        """
+        :param string:需要输入的字符串
+        """
+        k = PyKeyboard()
+        k.type_string(string)
+
+    def tap_keyboard(self, type):
+        """
+        :param type: 按键类型 enter/shift
+        """
+        k = PyKeyboard()
+        if type == 'enter':
+            k.tap_key(k.enter_key)
+        if type == 'shift':
+            k.tap_key(k.shift_key)
 
     # # 滚动屏幕方法
     # def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
