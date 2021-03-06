@@ -31,7 +31,8 @@ class ClientTagLoc:
     # 现有标签列表
     _texts_list_tags_exist = (By.XPATH, '//div[@class="el-form-item__content"]/span/span')
     # 标签删除按钮
-    _btn_delete_tag = '//div[@class="el-form-item__content"]/span/span[{}]/i'
+    # _btn_delete_tag = '//div[@class="el-form-item__content"]/span/span[{}]/i'
+    _btn_delete_tag = (By.XPATH, "//div[@class='el-dialog__body']//span[contains(@class, 'el-tag--info')]/i")   # 所有的编辑界面里的删除按钮
 
     # 删除提示窗口
     # 确定按钮

@@ -36,6 +36,24 @@ class ClientTag(BasePage, ClientTagLoc):
         tags_equal.sort()
         self.assert_Equal(tags, tags_equal)
 
+    def edit_tag(self, old_tag_group, new_tag_group, new_tag):     # 修改tag_group和tag
+        sleep(5)
+        self.click_element(self.find_Element((By.XPATH, "//div[contains(text(),'%s')]/../..//button/span[text()='编辑']" % old_tag_group))) # 点击某tag的编辑按钮
+        sleep(2)
+        self.send_keys(self.find_Element(self._input_tag_group_name), new_tag_group)    # 输入新的标签组名称
+        sleep(1)
+        for i in range(len(old_tag_group)):
+            sleep(1)
+            self.click_element(self.find_Element(self._btn_delete_tag))
+        for tag in new_tag:    # tags是个数组，需要循环遍历填写进去
+            self.click_element(self.find_Element(self._btn_add_tag))    # 点击添加标签
+            sleep(1)
+            self.send_keys(self.find_Element(self._input_tag), tag)     # 输入tag
+            self.tap_keyboard('enter')      # 点击enter
+            sleep(1)
+        self.click_element(self.find_Element(self._btn_confirm))    # 点击确定按钮完成新建
+        sleep(5)
+        self.check_not_exist_in_page(old_tag_group)     # 验证该标签名不存在了
 
     def delete_tag_group(self, tag_group):  # 删除标签组
         sleep(5)
@@ -43,6 +61,7 @@ class ClientTag(BasePage, ClientTagLoc):
         sleep(2)
         self.click_element(self.find_Element(self._btn_delete_sure))    # 点击确定删除
         sleep(2)
+        self.check_not_exist_in_page(tag_group)     # 验证该标签名不存在了
 
 
 
