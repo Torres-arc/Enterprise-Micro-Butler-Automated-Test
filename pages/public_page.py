@@ -5,6 +5,14 @@ from time import sleep
 
 
 class PublicPage(BasePage, ClientLoc):
+    def switch_to_current(self):
+        self.click_element(self.find_Element(self._btn_client_manage_tab))  # 进入客户管理tab
+        sleep(2)
+
+    def unfold_search_bar(self):
+        self.click_element(self.find_Element(self._btn_more_filter))    # 展现隐藏搜索栏
+        sleep(2)
+
     def puclic_search_by_staff(self, adder):
         self.click_element(self.find_Element(self._btn_select_adder))  # 点击添加人输入框，进入组织架构
         sleep(2)
