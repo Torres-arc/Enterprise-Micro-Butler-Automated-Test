@@ -53,6 +53,17 @@ def get_userid_info(userid):
     return dict_[userid]
 
 
+def get_userid_list(list):
+    path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '\\config\\idInfo.json'
+    f = open(path, 'r', encoding='utf-8')
+    dict_ = eval(f.read())
+    f.close()
+    a_list = []
+    for i in list:
+        a_list.append(dict_[i])
+    return a_list
+
+
 def dict_gets(dict2, objkey, default='无目标', judge=0):
     """
     :param dict2: 需要查找字典
