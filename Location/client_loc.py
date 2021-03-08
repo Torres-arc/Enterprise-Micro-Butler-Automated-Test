@@ -48,3 +48,5 @@ class ClientLoc:
     _texts_full_tags = (By.XPATH, '//span[@class="el-tag el-tag--info el-tag--light"]')
     # 所有添加人
     _texts_full_adders = (By.CSS_SELECTOR, '.t-row ww-open-data[type="userName"]')
+    # 返回按钮
+    _btn_back = (By.XPATH, '//span[text()="返回"]/..')
