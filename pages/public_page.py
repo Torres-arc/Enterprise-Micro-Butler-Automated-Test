@@ -1,11 +1,13 @@
+from selenium.webdriver.common.by import By
+
 from common.base_page import BasePage
 from Location.client_loc import ClientLoc
-from common.statics import get_config
+from common.statics import get_userid_list
 from time import sleep
 
 
 class PublicPage(BasePage, ClientLoc):
-    def switch_to_current(self):
+    def switch_to_client_manage_tab(self):
         self.click_element(self.find_Element(self._btn_client_manage_tab))  # 进入客户管理tab
         sleep(2)
 
@@ -13,57 +15,72 @@ class PublicPage(BasePage, ClientLoc):
         self.click_element(self.find_Element(self._btn_more_filter))    # 展现隐藏搜索栏
         sleep(2)
 
-    def puclic_search_by_staff(self, adder):
-        self.click_element(self.find_Element(self._btn_select_adder))  # 点击添加人输入框，进入组织架构
+    def public_select_staff(self, open_window_loc, confirm_loc, adder):
+        """
+        打开组织架构弹窗，并选择员工
+        :param confirm_loc: 确认选择按钮的元素定位
+        :param open_window_loc: 打开弹窗的元素定位
+        :param adder: 需要搜索选择的员工姓名
+        :return:
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 点击添加人输入框，进入组织架构
         sleep(2)
         self.send_keys(self.find_Element(self._input_addname), adder)  # 输入添加人姓名
         sleep(1)
-        self.tap_keyboard('enter')
+        self.tap_keyboard('enter')  # 按下回车，进行搜索
         sleep(2)
-        self.click_element(self.find_Element(self._btn_adder))
+        self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
         sleep(2)
-        self.click_element(self.find_Element(self._btn_confirm))
+        self.click_element(self.find_Element(confirm_loc))  # 点击确认
         sleep(2)
 
-    def assert_data(self, data, target):
-        for i in data:
-            try:
-                self.check_exist_in_lists(data, i)
-            except AssertionError as e:
-                print('搜索条件与数据不匹配')
-                raise e
-
-    def common_search(self, page_num_loc, target_loc, next_page_loc, msg):
+    def search_by_input(self, input_loc, search_input):
         """
-        :param page_num_loc: 页面数量的定位
-        :param target_loc: 需要进行验证的页面文本定位
-        :param next_page_loc: 翻页按钮的定位
-        :param msg: 目标搜索数据
+        通过输入方式来搜索
+        :param input_loc: 输入框定位
+        :param search_input: 输入文本
         :return:
         """
-        pages = int(self.get_element_value(self.find_Elements(page_num_loc)))  # 获取搜索结果页数
-        count = 1
-        while pages > 0 and count <= 3:
-            try:
-                msglist = self.get_elements_values(self.find_Elements(target_loc))  # 搜索目标
+        self.send_keys(self.find_Element(self._input_name), search_input)  # 输入
+        sleep(1)
+        self.click_element(self.find_Element(self._btn_search))     # 点击搜索
+        sleep(1)
 
-            except TimeoutError:
-                try:
-                    self.check_exist_in_page('暂无数据')  # 无数据时的页面信息
-                except Exception as e:
-                    raise e
-                else:
-                    print('搜索条件下无数据')
-            except Exception as e:
-                raise e
-            else:  # 存在数据，进行验证
-                for i in msglist:
-                    try:
-                        self.check_exist_in_lists(msg, i)
-                    except AssertionError as e:
-                        print('搜索条件与数据不匹配')
-                        raise e
-            self.click_element(self.find_Element(next_page_loc))  # 翻页
-            sleep(2)
-            pages -= 1
-            count += 1
+    def select_tag(self, open_window_loc, confirm_loc, tag):
+        # 打开弹窗并选择标签
+        self.click_element(self.find_Element(open_window_loc))     # 点击打开标签弹窗
+        sleep(2)
+        self.click_element(self.find_Element((By.XPATH, self._btn_tags.format(tag))))  # 选择指定的标签
+        sleep(1)
+        self.click_element(self.find_Element(confirm_loc))    # 点击确认
+        sleep(1)
+
+    def assert_search_input(self, texts_loc, search_input):
+        """
+        通过输入方式来搜索后，验证里面的值都是包含输入的值
+        :param texts_loc: 文本元素定位
+        :param search_input: 目标查找文本
+        :return:
+        """
+        clients = self.get_elements_values(self.find_Elements(texts_loc))
+        print(clients)
+        for client in clients:
+            self.check_exist_in_lists(search_input, client)
+
+    def assert_search_staff(self, texts_loc, staff):
+        """
+        验证按组织架构搜索，员工数据符合预期
+        :param texts_loc: 员工元素定位
+        :param staff: 目标员工文本
+        :return:
+        """
+        ele_list = self.find_Elements(texts_loc)
+        id_list = []
+        for i in ele_list:
+            id_list.append(i.get_attribute('openid'))  # 先获取员工的openid列表
+        staff_list = get_userid_list(id_list)  # 通过企微接口，将id转化为员工姓名
+        for i in staff_list:
+            self.assert_Equal(staff, i)
+
+
+
