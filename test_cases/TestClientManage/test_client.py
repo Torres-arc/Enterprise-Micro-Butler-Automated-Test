@@ -14,7 +14,7 @@ search_tag = get_config('client_page', 'tag31')
 
 class TestClient(MyTest, ClientPage, PublicPage):
     """测试用户搜索（输入搜索）时，搜索结果是包含搜索关键词的"""
-    def test_TestClient_01(self):
+    def test_TestClient_01_searchByName(self):
         # 验证搜索后，搜索结果是包含搜索关键词的
         self.login(admin['username'], admin['password'])
         self.switch_to_client_manage_tab()    # 切换到客户管理
@@ -22,7 +22,7 @@ class TestClient(MyTest, ClientPage, PublicPage):
         self.search_by_input(self._input_name, search_input)  # 输入search_input来进行搜索
         self.assert_search_input(self._texts_clients_name, search_input)  # 验证搜索值是否正确
 
-    def test_TestClient_02(self):
+    def test_TestClient_02_searchByTag(self):
         # 验证搜索后，搜索结果是包含搜索标签的
         self.login(admin['username'], admin['password'])
         self.switch_to_client_manage_tab()    # 切换到客户管理
@@ -31,12 +31,12 @@ class TestClient(MyTest, ClientPage, PublicPage):
         self.go_through_list_to_get_msg(self._texts_clients_name, self._texts_full_tags)  # 遍历所有详情页，获取完整标签信息
         self.assert_search_tag(search_tag)      # 验证搜索结果是包含标签的
 
-    def test_TestClient_03(self):
+    def test_TestClient_03_searchByAdder(self):
         # 验证搜索后，搜索结果是包含添加人的
         self.login(admin['username'], admin['password'])
         self.switch_to_client_manage_tab()    # 切换到客户管理
         self.unfold_search_bar()
-        self.public_select_staff(self._btn_select_adder, self._btn_confirm, search_adder)
+        self.public_select_staff(self._btn_select_adder, self._btn_confirm, search_adder)  # 搜索目标员工
         self.click_element(self.find_Element(self._btn_search))
         sleep(2)
-        self.assert_search_staff(self._texts_clients_adders, search_adder)
+        self.assert_search_staff(self._texts_clients_adders, search_adder)  # 验证搜索结果与搜索员工一致
