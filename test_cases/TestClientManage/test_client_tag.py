@@ -15,7 +15,7 @@ class TestClientTag(MyTest, ClientTag, PublicPage):
     def test_TestClientTag_01(self):
         # 验证用户条件标签组合标签时，可以正确添加
         self.login(admin['username'], admin['password'])
-        self.switch_to_current()    # 进入客户管理
+        self.switch_to_client_manage_tab()    # 进入客户管理
         self.switch_to_client_tag() # 进入客户标签
         try:
             self.delete_tag_group(tag_group)    # 预计先删除该标签组
@@ -33,7 +33,7 @@ class TestClientTag(MyTest, ClientTag, PublicPage):
     def test_TestClientTag_02(self):
         # 验证用户条件标签组合标签后，进行整体的修改
         self.login(admin['username'], admin['password'])
-        self.switch_to_current()    # 进入客户管理
+        self.switch_to_client_manage_tab()    # 进入客户管理
         self.switch_to_client_tag() # 进入客户标签
         try:
             self.delete_tag_group(tag_group)    # 预计先删除该标签组
@@ -52,7 +52,7 @@ class TestClientTag(MyTest, ClientTag, PublicPage):
     def test_TestClientTag_03(self):
         # 验证用户条件标签新建后能否删除
         self.login(admin['username'], admin['password'])
-        self.switch_to_current()    # 进入客户管理
+        self.switch_to_client_manage_tab()    # 进入客户管理
         self.switch_to_client_tag() # 进入客户标签
         try:
             self.delete_tag_group(tag_group)    # 预计先删除该标签组
