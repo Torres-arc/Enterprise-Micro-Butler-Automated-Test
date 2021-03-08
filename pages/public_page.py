@@ -1,15 +1,18 @@
 from selenium.webdriver.common.by import By
-
+from Location.welcome_message_loc import WelcomeMessageLoc
 from common.base_page import BasePage
 from Location.client_loc import ClientLoc
 from common.statics import get_userid_list
 from time import sleep
 
 
-class PublicPage(BasePage, ClientLoc):
+class PublicPage(BasePage, ClientLoc, WelcomeMessageLoc):
     def switch_to_client_manage_tab(self):
         self.click_element(self.find_Element(self._btn_client_manage_tab))  # 进入客户管理tab
         sleep(2)
+
+    def switch_to_client_marketing_tab(self):
+        self.click_element(self.find_Element(self._btn_client_marketing_tab))   # 进入客户营销tab
 
     def unfold_search_bar(self):
         self.click_element(self.find_Element(self._btn_more_filter))    # 展现隐藏搜索栏
@@ -41,7 +44,7 @@ class PublicPage(BasePage, ClientLoc):
         :param search_input: 输入文本
         :return:
         """
-        self.send_keys(self.find_Element(self._input_name), search_input)  # 输入
+        self.send_keys(self.find_Element(input_loc), search_input)  # 输入
         sleep(1)
         self.click_element(self.find_Element(self._btn_search))     # 点击搜索
         sleep(1)
