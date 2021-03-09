@@ -18,9 +18,16 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
 
     def switch_to_client_marketing_tab(self):
         self.click_element(self.find_Element(self._btn_client_marketing_tab))   # 进入客户营销tab
+        sleep(2)
 
     def unfold_search_bar(self):
+        # 客户管理模块的展开
         self.click_element(self.find_Element(self._btn_more_filter))    # 展现隐藏搜索栏
+        sleep(2)
+
+    def unfold_market_search_bar(self):
+        # 客户营销模块的展开
+        self.click_element(self.find_Element(self._btn_search_more_filter))    # 展现隐藏搜索栏
         sleep(2)
 
     def public_select_staff(self, open_window_loc, confirm_loc, adder):
@@ -28,17 +35,28 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
         打开组织架构弹窗，并选择员工
         :param confirm_loc: 确认选择按钮的元素定位
         :param open_window_loc: 打开弹窗的元素定位
-        :param adder: 需要搜索选择的员工姓名
+        :param adder: 需要搜索选择的员工姓名(支持string及list)
         :return:
         """
         self.click_element(self.find_Element(open_window_loc))  # 点击添加人输入框，进入组织架构
         sleep(2)
-        self.send_keys(self.find_Element(self._input_addname), adder)  # 输入添加人姓名
-        sleep(1)
-        self.tap_keyboard('enter')  # 按下回车，进行搜索
-        sleep(2)
-        self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
-        sleep(2)
+        if isinstance(adder, str):
+            self.send_keys(self.find_Element(self._input_addname), adder)  # 输入添加人姓名
+            sleep(1)
+            self.tap_keyboard('enter')  # 按下回车，进行搜索
+            sleep(2)
+            self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
+            sleep(2)
+        elif isinstance(adder, list):
+            for i in adder:
+                self.send_keys(self.find_Element(self._input_addname), i)  # 输入添加人姓名
+                sleep(1)
+                self.tap_keyboard('enter')  # 按下回车，进行搜索
+                sleep(2)
+                self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
+                sleep(2)
+        else:
+            raise TypeError
         self.click_element(self.find_Element(confirm_loc))  # 点击确认
         sleep(2)
 
@@ -54,7 +72,7 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
         self.click_element(self.find_Element(self._btn_search))     # 点击搜索
         sleep(1)
 
-    def select_tag(self, open_window_loc, confirm_loc, tag):
+    def select_tag_by_name(self, open_window_loc, confirm_loc, tag):
         """
         打开弹窗并选择标签
         :param open_window_loc: 打开标签弹窗的按钮定位
@@ -68,6 +86,25 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
         sleep(1)
         self.click_element(self.find_Element(confirm_loc))  # 点击确认
         sleep(1)
+
+    def select_tag(self, open_window_loc, tag_loc, confirm_loc):
+        """
+        打开弹窗并选择标签
+        :param open_window_loc: 打开标签弹窗的按钮定位
+        :param tag_loc: 标签选择定位(list)
+        :param confirm_loc: 标签确认的按钮定位
+        :return: list标签列表
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 点击打开标签弹窗
+        sleep(2)
+        tag_list = []
+        for i in tag_loc:
+            tag_list.append(self.get_element_value(self.find_Element(i)))
+            self.click_element(self.find_Element(i))  # 选择指定的标签
+            sleep(1)
+        self.click_element(self.find_Element(confirm_loc))  # 点击确认
+        sleep(1)
+        return tag_list
 
     def select_date(self, start_time, end_time):
         # 输入开始及结束时间
