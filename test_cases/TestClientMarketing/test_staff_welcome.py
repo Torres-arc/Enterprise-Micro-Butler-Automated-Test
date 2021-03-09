@@ -43,5 +43,23 @@ class TestStaffWelcome(MyTest, LoginPage, PublicPage, StaffWelcome):
         self.edit_welcome_message(welcome_message, welcome_message_edit)    # 编辑，把老的改成新的
         self.assert_welcome_message(welcome_message_edit)   # 验证第一条欢迎语变成了最新的
 
+    def test_TestStaffWelcome_03(self):
+        # 验证搜索员工欢迎语
+        self.login(admin['username'], admin['password'])    # 登录
+        self.switch_to_client_marketing_tab()   # 点击客户营销
+        self.switch_to_welcome_message()      # 点击欢迎语tab
+        try:
+            self.delete_welcome_message(welcome_message)    # 再尝试删除掉
+        except:
+            pass
+        try:
+            self.delete_welcome_message(welcome_message_edit)    # 再尝试删除掉
+        except:
+            pass
+        self.new_welcome_message(welcome_message)   # 新建欢迎语
+        self.search_by_input(self._input_client_search,welcome_message, self._btn_search)     # 搜索
+        self.assert_welcome_message(welcome_message)   # 验证第一条欢迎语就是这条
+
+
 
 

@@ -19,7 +19,7 @@ class TestClient(MyTest, ClientPage, PublicPage):
         self.login(admin['username'], admin['password'])
         self.switch_to_client_manage_tab()    # 切换到客户管理
 
-        self.search_by_input(self._input_name, search_input)  # 输入search_input来进行搜索
+        self.search_by_input(self._input_name, search_input, self._btn_search)  # 输入search_input来进行搜索
         self.assert_search_input(self._texts_clients_name, search_input)  # 验证搜索值是否正确
 
     def test_TestClient_02_searchByTag(self):

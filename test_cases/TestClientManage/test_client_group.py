@@ -19,7 +19,7 @@ class TestClient(MyTest, ClientGroup, PublicPage):
         self.switch_to_client_manage_tab()    # 切换到客户管理
         self.switch_to_client_group()  # 进入客户群页面
 
-        self.search_by_input(self._input_group_name, search_input)  # 输入search_input来进行搜索
+        self.search_by_input(self._input_group_name, search_input, self._btn_search)  # 输入search_input来进行搜索
         self.assert_search_input(self._texts_client_groups_names, search_input)  # 验证搜索值是否正确
 
     def test_TestClientGroup_02_searchByMasterName(self):

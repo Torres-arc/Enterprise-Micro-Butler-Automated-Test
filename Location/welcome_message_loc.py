@@ -29,6 +29,8 @@ class WelcomeMessageLoc:
     _texts_client_welcome = (By.XPATH, "//tbody//div[@class='cell']//div")
 
     # 部门员工欢迎语页面
+    # 员工的openid位置
+    _text_user_open_id = (By.XPATH, "//label[text()='使用员工']/..//ww-open-data")
     # 新建部门员工欢迎语按钮
     _btn_create_department_client_welcome = (By.XPATH, '//span[text()="新建部门员工欢迎语"]/..')
     # 部门员工欢迎语列表
@@ -41,6 +43,8 @@ class WelcomeMessageLoc:
     _input_department_client_search = (By.CSS_SELECTOR, '#pane-1 input[placeholder$="关键词"]')
     # 部门员工页面查询按钮
     _btn_department_client_search = (By.CSS_SELECTOR, '#pane-1 .search button')
+    # 部门员工欢迎语第一条数据的值
+    _texts_department_client_welcome = (By.XPATH, "//div[@class='el-table__body-wrapper is-scrolling-none']//div[@class='cell']/div")
 
     # 添加素材按钮
     _btn_add_materials = (By.XPATH, '//div[text()="添加图片/网页/小程序消息"]')
