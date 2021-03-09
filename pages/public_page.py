@@ -6,6 +6,7 @@ from common.base_page import BasePage
 from Location.client_loc import ClientLoc
 from Location.client_group_loc import ClientGroupLoc
 from Location.client_code_loc import ClientCodeLoc
+from Location.welcome_message_loc import WelcomeMessageLoc
 from common.statics import get_userid_list
 from time import sleep
 
