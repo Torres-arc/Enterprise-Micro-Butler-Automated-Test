@@ -1,12 +1,17 @@
+import datetime
+
 from selenium.webdriver.common.by import By
-from Location.welcome_message_loc import WelcomeMessageLoc
+
 from common.base_page import BasePage
 from Location.client_loc import ClientLoc
+from Location.client_group_loc import ClientGroupLoc
+from Location.client_code_loc import ClientCodeLoc
+from Location.welcome_message_loc import WelcomeMessageLoc
 from common.statics import get_userid_list
 from time import sleep
 
 
-class PublicPage(BasePage, ClientLoc, WelcomeMessageLoc):
+class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMessageLoc):
     def switch_to_client_manage_tab(self):
         self.click_element(self.find_Element(self._btn_client_manage_tab))  # 进入客户管理tab
         sleep(2)
@@ -37,26 +42,38 @@ class PublicPage(BasePage, ClientLoc, WelcomeMessageLoc):
         self.click_element(self.find_Element(confirm_loc))  # 点击确认
         sleep(2)
 
-    def search_by_input(self, input_loc, search_input, search_loc):
+    def search_by_input(self, input_loc, search_input):
         """
         通过输入方式来搜索
         :param input_loc: 输入框定位
         :param search_input: 输入文本
-        :param search_loc: 搜索框定位
         :return:
         """
         self.send_keys(self.find_Element(input_loc), search_input)  # 输入
         sleep(2)
-        self.click_element(self.find_Element(search_loc))     # 点击搜索
+        self.click_element(self.find_Element(self._btn_search))     # 点击搜索
         sleep(1)
 
     def select_tag(self, open_window_loc, confirm_loc, tag):
-        # 打开弹窗并选择标签
-        self.click_element(self.find_Element(open_window_loc))     # 点击打开标签弹窗
+        """
+        打开弹窗并选择标签
+        :param open_window_loc: 打开标签弹窗的按钮定位
+        :param confirm_loc: 标签确认的按钮定位
+        :param tag: 目标标签
+        :return:
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 点击打开标签弹窗
         sleep(2)
         self.click_element(self.find_Element((By.XPATH, self._btn_tags.format(tag))))  # 选择指定的标签
         sleep(1)
-        self.click_element(self.find_Element(confirm_loc))    # 点击确认
+        self.click_element(self.find_Element(confirm_loc))  # 点击确认
+        sleep(1)
+
+    def select_date(self, start_time, end_time):
+        # 输入开始及结束时间
+        self.send_keys(self.find_Element(self._input_create_start_time), start_time)
+        sleep(1)
+        self.send_keys(self.find_Element(self._input_create_end_time), end_time)
         sleep(1)
 
     def assert_search_input(self, texts_loc, search_input):
@@ -85,6 +102,24 @@ class PublicPage(BasePage, ClientLoc, WelcomeMessageLoc):
         staff_list = get_userid_list(id_list)  # 通过企微接口，将id转化为员工姓名
         for i in staff_list:
             self.assert_Equal(staff, i)
+
+    def assert_search_date(self, time_loc, start_time, end_time):
+        """
+        验证日期处于筛选区间内
+        :param time_loc: 日期文本定位
+        :param start_time: 开始时间 YYYY-MM-DD
+        :param end_time: 结束时间
+        :return:
+        """
+        time_list = self.get_elements_values(self.find_Elements(time_loc))
+        splited_list = []
+        for i in time_list:
+            splited_list.append((i.split(' '))[0])
+        for date in splited_list:
+            st = datetime.datetime.strptime(start_time, '%Y-%m-%d')
+            et = datetime.datetime.strptime(end_time, '%Y-%m-%d')
+            nt = datetime.datetime.strptime(date, '%Y-%m-%d')
+            self.assert_True(st <= nt <= et, '验证，{} <= {} <= {}'.format(st, nt, et))
 
 
 
