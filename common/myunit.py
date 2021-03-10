@@ -57,6 +57,8 @@ class MyTest(unittest.TestCase, LoginPage):
         name = video_path + '\\' + self._testMethodName     # 录制的文件名
         self.t = threading.Thread(target=self.video_record, args=(name,))
         self.t.start()
+        # 设置全局变量，用于用例间变量传递
+        globals()['msg'] = None
 
     def tearDown(self):
         """结束后的关闭浏览器等"""
