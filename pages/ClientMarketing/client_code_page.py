@@ -37,11 +37,11 @@ class ClientCodePage(BasePage, ClientCodeLoc):
         sleep(2)
 
     def delete_code_in_batch(self):
-        self.click_element(self.find_Element(self._btn_check_box))
+        self.click_element(self.find_Element(self._btn_check_box))  # 点击全选
         sleep(1)
-        self.click_element(self.find_Element(self._btn_delete))
+        self.click_element(self.find_Element(self._btn_delete))  # 点击删除
         sleep(2)
-        self.click_element(self.find_Element(self._btn_delete_confirm))
+        self.click_element(self.find_Element(self._btn_delete_confirm))  # 删除二次确认
         sleep(2)
 
     def select_wel(self, msg_type, msg, wel):
