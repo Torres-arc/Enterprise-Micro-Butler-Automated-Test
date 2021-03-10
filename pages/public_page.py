@@ -60,16 +60,17 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
         self.click_element(self.find_Element(confirm_loc))  # 点击确认
         sleep(2)
 
-    def search_by_input(self, input_loc, search_input):
+    def search_by_input(self, input_loc, search_input, search_loc):
         """
         通过输入方式来搜索
+        :param search_loc: 查询按钮定位
         :param input_loc: 输入框定位
         :param search_input: 输入文本
         :return:
         """
         self.send_keys(self.find_Element(input_loc), search_input)  # 输入
         sleep(2)
-        self.click_element(self.find_Element(self._btn_search))     # 点击搜索
+        self.click_element(self.find_Element(search_loc))     # 点击搜索
         sleep(1)
 
     def select_tag_by_name(self, open_window_loc, confirm_loc, tag):
