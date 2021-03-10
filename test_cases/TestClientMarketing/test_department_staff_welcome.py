@@ -36,7 +36,7 @@ class TestDepartmentStaffWelcome(MyTest, LoginPage, DepartStaffWelcome):
         self.new_department_welcome_message(welcome_message, staff_name)   # 新建欢迎语
         self.assert_welcome_message(welcome_message)    # 验证第一条是该欢迎语
 
-    def test_TestStaffWelcome_02(self):
+    def test_TestDepartmentStaffWelcome_02(self):
         # 验证员工编辑欢迎语
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -63,7 +63,7 @@ class TestDepartmentStaffWelcome(MyTest, LoginPage, DepartStaffWelcome):
         self.edit_department_welcome_message(welcome_message, welcome_message_edit, staff_name)    # 编辑，把老的改成新的
         self.assert_welcome_message(welcome_message_edit)   # 验证第一条欢迎语变成了最新的
 
-    def test_TestStaffWelcome_03(self):
+    def test_TestDepartmentStaffWelcome_03(self):
         # 验证搜索员工欢迎语
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -90,7 +90,7 @@ class TestDepartmentStaffWelcome(MyTest, LoginPage, DepartStaffWelcome):
         self.search_by_input(self._input_department_client_search, welcome_message,self._btn_department_client_search)     # 搜索
         self.assert_welcome_message(welcome_message)   # 验证第一条欢迎语就是这条
 
-    def test_TestStaffWelcome_04(self):
+    def test_TestDepartmentStaffWelcome_04(self):
         # 由于存在唯一性，所有不论如何都要创建一条云书的数据占有该名称
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
