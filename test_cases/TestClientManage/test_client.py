@@ -26,7 +26,7 @@ class TestClient(MyTest, ClientPage, PublicPage):
         # 验证搜索后，搜索结果是包含搜索标签的
         self.login(admin['username'], admin['password'])
         self.switch_to_client_manage_tab()    # 切换到客户管理
-        self.select_tag(self._btn_select_tag, self._btn_confirm, search_tag)    # 按照标签来进行搜索
+        self.select_tag_by_name(self._btn_select_tag, self._btn_confirm, search_tag)    # 按照标签来进行搜索
         self.click_element(self.find_Element(self._btn_search))
         self.go_through_list_to_get_msg(self._texts_clients_name, self._texts_full_tags)  # 遍历所有详情页，获取完整标签信息
         self.assert_search_tag(search_tag)      # 验证搜索结果是包含标签的
