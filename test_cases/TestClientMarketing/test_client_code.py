@@ -29,7 +29,7 @@ class TestClient(MyTest, ClientCodePage, PublicPage):
 
         self.unfold_market_search_bar()
         sleep(2)
-        self.search_by_input(self._input_act_scene, ccp['actscene'])  # 输入search_input来进行搜索
+        self.search_by_input(self._input_act_scene, ccp['actscene'], self._btn_search)  # 输入search_input来进行搜索
         self.assert_search_input(self._texts_actscene, ccp['actscene'])  # 验证搜索值是否正确
 
     def test_TestClient_03_searchByUser(self):
@@ -263,6 +263,6 @@ class TestClient(MyTest, ClientCodePage, PublicPage):
 
         self.unfold_market_search_bar()
         sleep(2)
-        self.search_by_input(self._input_act_scene, ccp['actscene'])  # 搜索目标活码
+        self.search_by_input(self._input_act_scene, ccp['actscene'], self._btn_search)  # 搜索目标活码
         self.delete_code_in_batch()  # 批量删除
         self.check_not_exist_in_page(ccp['actscene'])  # 验证目标活码不存在于页面中
