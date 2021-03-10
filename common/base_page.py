@@ -276,6 +276,13 @@ class BasePage(object):
         if type == 'shift':
             k.tap_key(k.shift_key)
 
+    def upload_file(self, path):
+        path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)) + path)
+        self.tap_keyboard('shift')
+        self.control_keyboard(path)
+        self.tap_keyboard('enter')
+        sleep(2)
+
     # 滚动屏幕方法
     def scroll_screen(self, element, vertical=-10, ele=None, zoom=1):
         """

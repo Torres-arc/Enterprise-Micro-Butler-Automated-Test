@@ -145,7 +145,7 @@ def new_file(testdir):
 
 def createExcel():
     path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)) + '\\Log')
-    path1 = self.new_file(path)
+    path1 = new_file(path)
     app = xw.App(visible=False, add_book=False)
     app.display_alerts = False
     app.screen_updating = False
