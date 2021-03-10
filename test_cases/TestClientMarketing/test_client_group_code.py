@@ -27,7 +27,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         sleep(2)
         self.add_reality_code(cgcp['groupname'], cgcp['date'])  # 添加实际群码
         sleep(2)
-        self.click_element(self.find_Element(self._btn_next_step2))
+        self.click_element(self.find_Element(self._btn_next_step2))  # 进入下一步
         sleep(2)
         self.force_scroll_screen()
         self.click_element(self.find_Element(self._btn_finish))  # 滚动屏幕并点击完成
@@ -45,9 +45,9 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         sleep(2)
         self.click_element(self.find_Element(self._btn_manage_edit))  # 编辑群聊
         sleep(2)
-        self.add_reality_code(cgcp['groupname2'], cgcp['date2'], 1)
+        self.add_reality_code(cgcp['groupname2'], cgcp['date2'], 1)  # 编辑实际群码
         self.check_exist_in_page(cgcp['groupname2'])
-        self.check_exist_in_page(cgcp['date2'])
+        self.check_exist_in_page(cgcp['date2'])  # 验证页面是否存在数据
 
     def test_TestClient_03_editCode(self):
         # 验证搜索后，搜索结果与目标创建人一致
@@ -55,17 +55,14 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
 
-        self.click_element(self.find_Element(self._btn_enter_details))
+        self.click_element(self.find_Element(self._btn_enter_details))  # 进入详情页
         sleep(2)
-        self.click_element(self.find_Element(self._btn_edit_code))
+        self.click_element(self.find_Element(self._btn_edit_code))  # 点击编辑按钮
         sleep(2)
         self.creat_code(cgcp['actname1'], cgcp['actscene1'], status=1)  # 输入信息
-        self.click_element(self.find_Element(self._btn_edit_confirm))
+        self.click_element(self.find_Element(self._btn_edit_confirm))  # 点击编辑完成
         sleep(2)
-        acn = self.get_element_value(self.find_Element(self._text_act_name))
-        acs = self.get_element_value(self.find_Element(self._text_act_info))
-        self.assert_Equal(acn, cgcp['actname1'])
-        self.assert_Equal(acs, cgcp['actscene1'])
+        self.assert_reality_code(cgcp['actname1'], cgcp['actscene1'])  # 验证数据正确
 
     def test_TestClient_04_deleteCode(self):
         # 验证搜索后，搜索结果与目标创建人一致
@@ -73,10 +70,10 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
 
-        self.click_element(self.find_Element(self._btn_enter_details))
+        self.click_element(self.find_Element(self._btn_enter_details))  # 进入详情页
         sleep(2)
-        self.delete_code()
-        self.check_not_exist_in_page(cgcp['actname1'])
+        self.delete_code()  # 删除活码
+        self.check_not_exist_in_page(cgcp['actname1'])  # 验证数据正确
 
     def test_TestClient_05_searchByKeys(self):
         # 验证搜索后，搜索结果与目标创建人一致
@@ -84,7 +81,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
 
-        self.search_by_input(self._input_key_words, cgcp['search_key'], self._btn_search)
-        self.assert_search_by_keys(cgcp['search_key'])
+        self.search_by_input(self._input_key_words, cgcp['search_key'], self._btn_search)  # 搜索关键词
+        self.assert_search_by_keys(cgcp['search_key'])  # 验证数据正确
 
 
