@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from common.base_page import BasePage
-from Location.send_message_loc import SendMessageLoc
+from Location.send_enterprise_message_loc import SendMessageLoc
 from common.statics import get_userid_list
 from pages.public_page import PublicPage
 from time import sleep
