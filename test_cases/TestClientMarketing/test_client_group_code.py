@@ -3,7 +3,7 @@ from time import sleep
 from common.myunit import MyTest
 from pages.ClientMarketing.client_group_code_page import ClientGroupCodePage
 from pages.public_page import PublicPage
-from common.statics import get_config, get_userid_info
+from common.statics import get_config
 
 admin = get_config('3.1_www')  # 读取注册管理员账号
 cgcp = get_config('client_group_code_page')
@@ -11,7 +11,7 @@ cgcp = get_config('client_group_code_page')
 
 class TestClient(MyTest, ClientGroupCodePage, PublicPage):
     def test_TestClient_01_createCode(self):
-        # 验证搜索后，搜索结果与目标创建人一致
+        # 创建活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
@@ -36,7 +36,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.check_exist_in_page(cgcp['actscene'])  # 验证页面是否存在数据
 
     def test_TestClient_02_manageCode(self):
-        # 验证搜索后，搜索结果与目标创建人一致
+        # 管理实际群码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
@@ -50,7 +50,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.check_exist_in_page(cgcp['date2'])  # 验证页面是否存在数据
 
     def test_TestClient_03_editCode(self):
-        # 验证搜索后，搜索结果与目标创建人一致
+        # 编辑群活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
@@ -65,7 +65,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.assert_reality_code(cgcp['actname1'], cgcp['actscene1'])  # 验证数据正确
 
     def test_TestClient_04_deleteCode(self):
-        # 验证搜索后，搜索结果与目标创建人一致
+        # 删除活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
@@ -76,7 +76,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.check_not_exist_in_page(cgcp['actname1'])  # 验证数据正确
 
     def test_TestClient_05_searchByKeys(self):
-        # 验证搜索后，搜索结果与目标创建人一致
+        # 搜索关键词
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()

@@ -1,9 +1,10 @@
 from common.base_page import BasePage
 from Location.client_group_code_loc import ClientGroupCodeLoc
+from pages.public_page import PublicPage
 from time import sleep
 
 
-class ClientGroupCodePage(BasePage, ClientGroupCodeLoc):
+class ClientGroupCodePage(BasePage, ClientGroupCodeLoc, PublicPage):
     def switch_to_current(self):
         self.click_element(self.find_Element(self._btn_client_group_tab))
         sleep(2)
@@ -47,16 +48,9 @@ class ClientGroupCodePage(BasePage, ClientGroupCodeLoc):
             self.click_element(self.find_Element(self._btn_reality_group_code))
             sleep(2)
             self.upload_file('\\materials\\pic\\groupcode.jpg')
-        self.click_element(self.find_Element(self._btn_select_client_group))
-        sleep(2)
-        self.send_keys(self.find_Element(self._input_group_name), group_name)
-        sleep(2)
-        self.click_element(self.find_Element(self._btn_search_client_group))
-        sleep(2)
-        self.click_element(self.find_Element(self._btn_select_specify_group))
-        sleep(2)
-        self.click_element(self.find_Element(self._btn_client_group_confirm))
-        sleep(2)
+        self.select_group_code(self._btn_select_client_group, self._input_group_name,
+                               self._btn_search_client_group, self._btn_select_specify_group,
+                               self._btn_client_group_confirm, group_name)
         self.send_keys(self.find_Element(self._input_expire_date), date)
         sleep(2)
         self.click_element(self.find_Element(self._btn_sure))
