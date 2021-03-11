@@ -30,9 +30,9 @@ mission_fission_gift = get_config('fission_action', 'mission_fission_gift')     
 # friends_circle_msg = get_config('sop', 'friends_circle_msg')    # 朋友圈推送内容
 # edit_friends_circle_msg = get_config('sop', 'edit_friends_circle_msg')  # 朋友圈的推送内容修改
 
-class TestSendSop(MyTest, LoginPage, FissionActionPage):
+class TestFissionAction(MyTest, LoginPage, FissionActionPage):
     """测试裂变活动"""
-    def test_TestSendSop_01(self):
+    def test_TestFissionAction_01(self):
         # 验证员工新建任务裂变
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -52,7 +52,7 @@ class TestSendSop(MyTest, LoginPage, FissionActionPage):
         self.assert_fission('mission_fission',mission_fission_name,mission_fission_guide,mission_fission_number,mission_fission_gift,'group_helper',
                             fission_start_member='all', fission_tag='all')
 
-    def test_TestSendSop_02(self):
+    def test_TestFissionAction_02(self):
         # 验证员工新建任务裂变
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -72,7 +72,7 @@ class TestSendSop(MyTest, LoginPage, FissionActionPage):
         self.assert_fission('mission_fission',mission_fission_name,mission_fission_guide,mission_fission_number,mission_fission_gift,'group_helper',
                             fission_start_member=mission_fission_start_member,fission_tag='all')
 
-    def test_TestSendSop_03(self):
+    def test_TestFissionAction_03(self):
         # 验证员工新建任务裂变
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -92,7 +92,7 @@ class TestSendSop(MyTest, LoginPage, FissionActionPage):
         self.assert_fission('mission_fission',mission_fission_name,mission_fission_guide,mission_fission_number,mission_fission_gift,'group_helper',
                             fission_start_member=mission_fission_start_member,fission_tag=mission_fission_tag)
 
-    def test_TestSendSop_04(self):
+    def test_TestFissionAction_04(self):
         # 验证员工新建任务裂变
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
@@ -112,7 +112,7 @@ class TestSendSop(MyTest, LoginPage, FissionActionPage):
         self.assert_fission('mission_fission',mission_fission_name,mission_fission_guide,mission_fission_number,mission_fission_gift,'admin_helper',
                             fission_start_member='all',fission_tag=mission_fission_tag)
 
-    def test_TestSendSop_05(self):
+    def test_TestFissionAction_05(self):
         # 验证员工新建任务裂变后，进行搜索
         self.login(admin['username'], admin['password'])    # 登录
         self.switch_to_client_marketing_tab()   # 点击客户营销
