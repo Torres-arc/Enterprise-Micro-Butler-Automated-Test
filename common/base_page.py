@@ -432,3 +432,8 @@ class BasePage(object):
             raise e
         else:
             log().info('{}-{}-{},经验证,{} 不存在于字符串{}内，与预期相符'.format(str(module), str(lineno), name, string1, str(string2)))
+
+    # 元素等待
+    def wait_element_to_be_clickable(self, loc):     # 等待元素出现
+        WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(loc), message='失败，没等到该元素')
+        sleep(1)

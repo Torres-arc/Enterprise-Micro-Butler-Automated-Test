@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
 from common.base_page import BasePage
-from Location.send_enterprise_message_loc import SendMessageLoc
+from Location.send_enterprise_message_loc import SendEnterpriseMessageLoc
 from common.statics import get_userid_list
 from pages.public_page import PublicPage
 from time import sleep
 from common.statics import get_userid_info
 
-class SendEnterpriseMessage(SendMessageLoc, PublicPage):
+class SendEnterpriseMessage(SendEnterpriseMessageLoc, PublicPage):
 
     def switch_to_enterprise_send_message(self):
         sleep(1)

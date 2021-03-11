@@ -42,7 +42,7 @@ class ClientLoc:
     _input_addname = (By.XPATH, '//input[@placeholder="请输入关键词"]')
     _btn_adder = (By.CLASS_NAME, 'custom-tree-node')
     _btn_confirm = (By.XPATH, '//div[@class="el-dialog"]/div[3]/div/button[2]')
-
+    _btn_group_search = (By.XPATH, '//input[@placeholder="请输入关键词"]/../../../..//span[text()="查询"]')
     # 客户详情页面
     # 所有标签
     _texts_full_tags = (By.XPATH, '//span[@class="el-tag el-tag--info el-tag--light"]')

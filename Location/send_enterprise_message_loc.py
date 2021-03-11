@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class SendMessageLoc:
+class SendEnterpriseMessageLoc:
     """"元素定位信息"""
     # 客户营销tab
     _btn_client_marketing_tab = (By.XPATH, '//span[text()="客户营销"]/..')

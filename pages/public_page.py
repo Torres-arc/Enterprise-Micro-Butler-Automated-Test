@@ -200,5 +200,36 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
             nt = datetime.datetime.strptime(date, '%Y-%m-%d')
             self.assert_True(st <= nt <= et, '验证，{} <= {} <= {}'.format(st, nt, et))
 
+    def public_select_group(self, open_window_loc, confirm_loc, group):
+        """
+        打开群聊弹窗，并选择群聊
+        :param confirm_loc: 确认选择按钮的元素定位
+        :param open_window_loc: 打开弹窗的元素定位
+        :param group: 需要搜索选择的群组(支持string及list)
+        :return:
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 点击群聊输入框，进入群聊选择框
+        sleep(2)
+        if isinstance(group, str):
+            self.send_keys(self.find_Element(self._input_addname), group)  # 输入群聊名称
+            sleep(1)
+            self.click_element(self.find_Element(self._btn_group_search))   # 点击查询
+            sleep(2)
+            # self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
+            self.click_element(self.find_Element((By.XPATH, "//div[@class='cell' and text()='%s']" % group)))
+            sleep(2)
+        elif isinstance(group, list):
+            for i in group:
+                self.send_keys(self.find_Element(self._input_addname), i)  # 输入添加人姓名
+                sleep(1)
+                self.click_element(self.find_Element(self._btn_group_search))   # 点击查询
+                sleep(2)
+                # self.click_element(self.find_Element(self._btn_adder))  # 选择搜索结果
+                self.click_element(self.find_Element((By.XPATH, "//div[@class='cell' and text()='%s']" % i)))
+                sleep(2)
+        else:
+            raise TypeError
+        self.click_element(self.find_Element(confirm_loc))  # 点击确认
+        sleep(2)
 
 
