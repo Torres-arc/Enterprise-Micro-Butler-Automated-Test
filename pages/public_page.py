@@ -107,6 +107,47 @@ class PublicPage(BasePage, ClientLoc, ClientGroupLoc, ClientCodeLoc, WelcomeMess
         sleep(1)
         return tag_list
 
+    def select_group_code(self, open_window_loc, input_loc, search_loc, select_loc, confirm_loc, group_name):
+        """
+        弹窗选择群活码
+        :param input_loc: 搜索输入框定位
+        :param open_window_loc:  打开选择群活码窗口的定位
+        :param search_loc: 查询按钮定位
+        :param select_loc:  选择群活码定位
+        :param confirm_loc:  确定按钮定位
+        :param group_name:   群名称文本
+        :return:
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 打开选择活码的弹窗
+        sleep(2)
+        self.send_keys(self.find_Element(input_loc), group_name)  # 输入群名
+        sleep(2)
+        self.click_element(self.find_Element(search_loc))  # 点击查询按钮
+        sleep(2)
+        self.click_element(self.find_Element(select_loc))  # 选择群活码
+        sleep(2)
+        self.click_element(self.find_Element(confirm_loc))  # 确认选择
+        sleep(2)
+
+    def material_select_group(self, open_window_loc, text_loc, select_loc):
+        """
+        素材中心，选择分组
+        :param open_window_loc: 打开选择分组弹窗的定位
+        :param text_loc:  需要选择的分组的文本定位
+        :param select_loc:  需要选择的分组的按钮定位
+        :return:
+        """
+        self.click_element(self.find_Element(open_window_loc))  # 打开选择分组弹窗
+        sleep(2)
+        # self.click_element(self.find_Element(self._text_first_group))
+        # sleep(1)
+        self.scroll_screen(self.find_Element(text_loc))  # 滚动至目标分组
+        sleep(1)
+        self.click_element(self.find_Element(text_loc))  # 使分组完全可见、可点击
+        sleep(1)
+        self.click_element(self.find_Element(select_loc))  # 选择分组
+        sleep(2)
+
     def select_date(self, start_time, end_time):
         # 输入开始及结束时间
         self.send_keys(self.find_Element(self._input_create_start_time), start_time)
