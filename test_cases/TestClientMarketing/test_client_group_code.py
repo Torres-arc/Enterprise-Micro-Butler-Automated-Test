@@ -10,7 +10,7 @@ cgcp = get_config('client_group_code_page')
 
 
 class TestClient(MyTest, ClientGroupCodePage, PublicPage):
-    def test_TestClient_01_createCode(self):
+    def test_TestClientGroupCode_01_createCode(self):
         # 创建活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
@@ -35,7 +35,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.check_exist_in_page(cgcp['actname'])
         self.check_exist_in_page(cgcp['actscene'])  # 验证页面是否存在数据
 
-    def test_TestClient_02_manageCode(self):
+    def test_TestClientGroupCode_02_manageCode(self):
         # 管理实际群码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
@@ -49,7 +49,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.check_exist_in_page(cgcp['groupname2'])
         self.check_exist_in_page(cgcp['date2'])  # 验证页面是否存在数据
 
-    def test_TestClient_03_editCode(self):
+    def test_TestClientGroupCode_03_editCode(self):
         # 编辑群活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
@@ -64,7 +64,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         sleep(2)
         self.assert_reality_code(cgcp['actname1'], cgcp['actscene1'])  # 验证数据正确
 
-    def test_TestClient_04_deleteCode(self):
+    def test_TestClientGroupCode_04_deleteCode(self):
         # 删除活码
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
@@ -75,7 +75,7 @@ class TestClient(MyTest, ClientGroupCodePage, PublicPage):
         self.delete_code()  # 删除活码
         self.check_not_exist_in_page(cgcp['actname1'])  # 验证数据正确
 
-    def test_TestClient_05_searchByKeys(self):
+    def test_TestClientGroupCode_05_searchByKeys(self):
         # 搜索关键词
         self.login(admin['username'], admin['password'])
         self.switch_to_client_marketing_tab()  # 切换到客户营销
