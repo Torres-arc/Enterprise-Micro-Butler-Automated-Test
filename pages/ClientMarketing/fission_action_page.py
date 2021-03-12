@@ -29,7 +29,7 @@ class FissionActionPage(PublicPage, FissionActionLoc):
         :return:
         """
         """
-        mission_fission(任务裂变):fission_type,fission_name,fission_guide,fission_number,fission_start_member,fission_tag,fission_poster，add_staff,gift.fission_load
+        mission_fission(任务裂变):fission_type,fission_name,fission_guide,fission_number,fission_start_member,fission_tag,fission_poster,gift.fission_load
         group_fission(群裂变):fission_type,fission_name,fission_guide,fission_number,fission_group,fission_poster，add_code,gift,fission_load
         """
         if fission_type == 'mission_fission':   # 如果是任务裂变
@@ -93,9 +93,10 @@ class FissionActionPage(PublicPage, FissionActionLoc):
         self.click_element(self.find_Element(self._btn_read_introduction))  # 勾选已阅读
         self.click_element(self.find_Element(self._btn_fission_save))   # 点击保存
         sleep(5)
+        self.wait_element_to_be_clickable(self._btn_fission_action)     # 出现裂变活动（意味着新建后已经跳转了）
 
     def assert_fission(self, fission_type, fission_name, fission_guide, fission_number, fission_gift, fission_load,
-                       fission_start_member=None,fission_tag=None):
+                       fission_start_member=None,fission_tag=None, fission_group=None):
         """
         :param fission_type:mission_fission和group_fission裂变类型
         :param fission_name: 验证的裂变名称
@@ -105,6 +106,7 @@ class FissionActionPage(PublicPage, FissionActionLoc):
         :param fission_load: 活动下发途径
         :param fission_start_member:活动发起成员
         :param fission_tag: 客户标签
+        :param fission_group：活动发起群主
         :return:
         """
         assert_fission_name = ''
@@ -121,27 +123,36 @@ class FissionActionPage(PublicPage, FissionActionLoc):
         assert_fission_gift = self.get_element_value(self.find_Element(self._text_check_gift))  # 获取兑奖码
         assert_fission_load = self.get_element_value(self.find_Element(self._text_check_load))  # 获取活动下发途径
         self.assert_Equal(assert_fission_name_page.strip(), fission_name)   # 验证页面名称一致
-        self.assert_Equal(assert_fission_guide.strip(), fission_guide)
-        self.assert_Equal(assert_fission_number.strip(), fission_number+'人')
-        self.assert_Equal(assert_fission_gift.strip(), fission_gift)
+        self.assert_Equal(assert_fission_guide.strip(), fission_guide)  # 验证引导语一致
+        self.assert_Equal(assert_fission_number.strip(), fission_number+'人')    # 验证裂变客户数一致
+        self.assert_Equal(assert_fission_gift.strip(), fission_gift)    # 验证兑换码一致
         if fission_load == 'group_helper':
-            self.assert_Equal(assert_fission_load.strip(), '客户群群发助手')
+            self.assert_Equal(assert_fission_load.strip(), '客户群群发助手')   # 验证下发途径一致，都是：客户群群发助手
         elif fission_load == 'admin_helper':
-            self.assert_Equal(assert_fission_load.strip(), '管理员统一群发消息')
+            self.assert_Equal(assert_fission_load.strip(), '管理员统一群发消息') # 验证下发途径一致，都是：管理员统一群发消息
         if fission_type == 'mission_fission':
-            if fission_start_member == 'all':
+            if fission_start_member == 'all':   # 如果是任务裂变，活动发起成员选择全部
                 assert_fission_start_member = self.get_element_value(self.find_Element(self._text_check_start_staff))   # 获取活动发起成员
-                self.assert_Equal(assert_fission_start_member.strip(), '全部')
-            else:
+                self.assert_Equal(assert_fission_start_member.strip(), '全部')    # 验证活动发起成员显示全部
+            else:   # 否则就是具体人名
                 assert_fission_start_member_id = self.find_Element(self._text_check_start_staff_id).get_attribute('openid') # 获取活动发起人成员
                 assert_fission_start_member=get_userid_info(assert_fission_start_member_id)
-                self.assert_Equal(assert_fission_start_member, fission_start_member)
-            if fission_tag == 'all':
+                self.assert_Equal(assert_fission_start_member, fission_start_member)    # 验证人名一致
+            if fission_tag == 'all':    # 如果是任务裂变，客户标签选择全部
                 assert_fission_tag = self.get_element_value(self.find_Element(self._text_check_tag))    # 获取客户标签
-                self.assert_Equal(assert_fission_tag.strip(), '全部')
-            else:
+                self.assert_Equal(assert_fission_tag.strip(), '全部') # 验证客户标签选的是全部
+            else:   # 否则就是具体的标签名
                 assert_fission_tag = self.get_element_value(self.find_Element(self._text_check_tag_name))   # 获取客户标签的具体值
-                self.assert_Equal(assert_fission_tag.strip(), fission_tag)
+                self.assert_Equal(assert_fission_tag.strip(), fission_tag)  # 验证标签名一致
+        elif fission_type == 'group_fission':
+            if fission_group == 'all':  # 如果是群裂变，活动发起群主选择全部
+                assert_fission_group = self.get_element_value(self.find_Element(self._text_check_start_group))  # 获取活动发起群主
+                self.assert_Equal(assert_fission_group.strip(), '全部')   # 验证活动发起群显示全部
+            else:   # 如果是群裂变，活动发起群主具体选择了
+                assert_fission_start_group_id = self.find_Element(self._text_check_start_group_id).get_attribute('openid') # 获取群主的id
+                assert_fission_start_group=get_userid_info(assert_fission_start_group_id)
+                self.assert_Equal(assert_fission_start_group, fission_group)    # 验证活动发起群主人名一致
+
 
     def search_fission(self,fission_type,fission_name):
         """

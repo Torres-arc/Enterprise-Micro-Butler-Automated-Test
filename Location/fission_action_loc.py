@@ -113,6 +113,8 @@ class FissionActionLoc:
     _text_check_start_staff_id = (By.XPATH, "//div[contains(text(),'活动发起成员')]/..//div[2]//ww-open-data")
     # 活动发起群主
     _text_check_start_group = (By.XPATH, "//div[contains(text(),'活动发起群主')]/..//div[2]")
+    # 活动发起群主的id
+    _text_check_start_group_id = (By.XPATH, "//div[contains(text(),'活动发起群主')]/..//div[2]//ww-open-data")
     # 客户标签
     _text_check_tag = (By.XPATH, "//div[contains(text(),'客户标签')]/..//div[2]")
     # 客户标签的具体值
