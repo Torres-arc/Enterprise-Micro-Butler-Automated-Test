@@ -39,7 +39,7 @@ class ClientLoc:
     _btn_tags = '//li[@class="tag" and text()=" {} "]'
 
     # 组织架构弹窗
-    _input_addname = (By.XPATH, '//input[@placeholder="请输入关键词"]')
+    _input_addname = (By.CSS_SELECTOR, '.el-col input')
     _btn_adder = (By.CLASS_NAME, 'custom-tree-node')
     _btn_confirm = (By.XPATH, '//div[@class="el-dialog"]/div[3]/div/button[2]')
     _btn_group_search = (By.XPATH, '//input[@placeholder="请输入关键词"]/../../../..//span[text()="查询"]')
