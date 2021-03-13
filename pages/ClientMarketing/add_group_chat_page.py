@@ -49,6 +49,7 @@ class AddGroupChat(PublicPage, AddGroupChatLoc):
         self.select_group_code(self._btn_add_group_code, self._input_add_group_code, self._btn_add_group_code_search, self._btn_add_group_code_select,
                                self._btn_add_group_code_sure, add_code)     # 选择群活码
         self.click_element(self.find_Element(self._btn_add_group_send))     # 点击发送
+        self.wait_element_to_be_clickable(self._btn_add_group_chat)     # 等待出现了页面了
         sleep(5)
 
     def assert_group_chat(self,add_type, mission_name,group_guide,add_group_staff=None, add_group_tag=None, send_limit=None, send_type=None):
@@ -64,9 +65,14 @@ class AddGroupChat(PublicPage, AddGroupChatLoc):
         """
         assert_mission_name = ''
         if add_type == 'add_group_chat':    # 如果是自动拉群
-            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_add_group))     # 获取到第一行的值
+            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_add_group))     # 获取到第一行的任务名
         elif add_type == 'add_tag_group':   # 如果是标签拉群
-            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_tag_group))     # 获取到第一行的值
+            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_tag_group))     # 获取到第一行的任务名
+            assert_send_type =  self.get_element_value(self.find_Element(self._text_first_tag_send))    # 获取到第一行的发送方式
+            if send_type == 'enterprise':
+                self.assert_Equal(assert_send_type.strip(), '企业群发')        # 验证发送方式是一样的
+            elif send_type == 'person':
+                self.assert_Equal(assert_send_type.strip(), '个人群发')        # 验证发送方式是一样的
         self.assert_Equal(assert_mission_name, mission_name)    # 验证与第一条的名称一致
         self.click_element(self.find_Element((By.XPATH, "//div[text()='%s']" % mission_name)))  # 点进去后查看
         sleep(2)
@@ -83,12 +89,32 @@ class AddGroupChat(PublicPage, AddGroupChatLoc):
             else:
                 assert_group_tag = self.get_element_value(self.find_Element(self._text_add_group_tag))  # 获取客户标签
                 self.assert_Equal(assert_group_tag, add_group_tag)  # 验证标签一致
+        elif add_type == 'add_tag_group':   # 如果是标签拉群
+            if send_limit == 'all':  # 如果发送给全部群，没人名就不验证
+                pass
+            else:
+                assert_send_limit_id = self.find_Element(self._text_add_tag_group_staff_id).get_attribute('openid')  # 获取页面里添加人员id
+                assert_send_limit=get_userid_info(assert_send_limit_id) # 获取到添加人员
+                self.assert_Equal(assert_send_limit, send_limit)    # 验证添加人一致
+
+    def search_group_chat(self, add_type, mission_name):
+        assert_mission_name = ''
+        if add_type == 'add_group_chat':
+            self.search_by_input(self._input_add_group_chat, mission_name, self._btn_group_chat_search)
+            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_add_group))     # 获取到第一行的任务名
+        elif add_type == 'add_tag_group':
+            self.search_by_input(self._input_tag_group, mission_name, self._btn_tag_group_search)
+            assert_mission_name = self.get_element_value(self.find_Element(self._text_first_tag_group))     # 获取到第一行的任务名
+        self.assert_Equal(assert_mission_name, mission_name)    # 验证与第一条的名称一致
 
 
-        # elif add_type == 'add_tag_group':   # 如果是标签拉群
-
-
-
-
+    def delete_group_chat(self, mission_name):
+        # 删除 新客自动拉群
+        self.click_element(self.find_Element((By.XPATH, "//div[text()='%s']" % mission_name)))  # 点进去后查看
+        # 点击删除
+        self.click_element(self.find_Element(self._btn_delete_add_group))   # 点击删除
+        sleep(1)
+        self.click_element(self.find_Element(self._btn_delete_add_group_sure))  # 确定
+        sleep(5)
 
 

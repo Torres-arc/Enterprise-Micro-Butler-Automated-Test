@@ -19,7 +19,7 @@ class AddGroupChatLoc:
     # 添加使用员工
     _btn_add_group_staff = (By.XPATH, "//span[text()=' 添加']")
     # 添加使用员工的确认按钮
-    _btn_add_group_staff_sure = (By.XPATH, "/html/body/div[2]/div/div[3]/span/button[2]/span")
+    _btn_add_group_staff_sure = (By.XPATH, "//span[text()='选择添加人']/../..//span[@class='dialog-footer']//span[text()='确 定']")
     # 添加标签
     _btn_add_group_tag = (By.XPATH, "//span[text()='选择标签']")
     # 添加标签确认按钮
@@ -34,8 +34,10 @@ class AddGroupChatLoc:
     _input_tag_group = (By.XPATH, "//span[text()='新建标签建群']/../../..//input")
     # 标签建群搜索按钮
     _btn_tag_group_search = (By.XPATH, "//span[text()='新建标签建群']/../../..//button/span[text()='查 询']")
-    # 第一行数据
+    # 第一行数据任务名
     _text_first_tag_group = (By.XPATH, "//span[text()='新建标签建群']/../../../..//div[@class='cell el-tooltip']")
+    # 第一行数据发送方式
+    _text_first_tag_send = (By.XPATH,"//span[text()='新建标签建群']/../../../..//tr[@class='el-table__row']//div[@class='cell']")
     # 按条件筛选客户
     _btn_group_select_client = (By.XPATH, "//span[text()='按照条件筛选客户']")
     # 选择添加人
@@ -75,3 +77,7 @@ class AddGroupChatLoc:
     _text_add_group_guide = (By.XPATH, "//label[contains(text(),'入群引导语')]/..//div")
     # 删除按钮
     _btn_delete_add_group = (By.XPATH, "//span[text()='删 除']")
+    # 删除按钮-确定
+    _btn_delete_add_group_sure = (By.XPATH, "//button/span[contains(text(),'确定')]")
+    # 添加人
+    _text_add_tag_group_staff_id = (By.XPATH, "//label[contains(text(),'添加人')]/..//ww-open-data")
