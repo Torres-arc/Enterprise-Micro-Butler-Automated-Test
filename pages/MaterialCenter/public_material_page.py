@@ -30,7 +30,7 @@ class PublicMaterialPage(BasePage, MaterialPosterLoc):
         self.click_element(self.find_Element(self._btn_move_group))  # 点击移动分组
         sleep(2)
 
-    def select_all_and_delete_poster(self):
+    def select_all_and_delete_material(self):
         # 全选并删除海报
         self.click_element(self.find_Element(self._btn_all_select))  # 勾选全选框
         sleep(2)
@@ -47,6 +47,8 @@ class PublicMaterialPage(BasePage, MaterialPosterLoc):
         sleep(2)
         self.send_keys(self.find_Element(self._input_poster_group_name), group)  # 输入分类名
         sleep(2)
+        self.tap_keyboard('enter')
+        sleep(1)
         self.click_element(self.find_Element(self._btn_edit_complete))  # 点击编辑完成
         sleep(2)
 
@@ -90,3 +92,19 @@ class PublicMaterialPage(BasePage, MaterialPosterLoc):
         sleep(2)
         self.click_element(self.find_Element(edit_loc))  # 点击编辑按钮
         sleep(2)
+
+    def assert_group(self, group):
+        # 验证分类存在于主分类列表
+        group_list = self.get_elements_values(self.find_Elements(self._texts_main_groups))
+        self.check_exist_in_lists(group, group_list)
+
+    def assert_not_in_group(self, group):
+        # 验证分类不存在于主分类列表
+        group_list = self.get_elements_values(self.find_Elements(self._texts_main_groups))
+        self.check_exist_not_in_lists(group, group_list)
+
+    def assert_materials(self, material, material_loc):
+        # 验证素材搜索结果
+        name_list = self.get_elements_values(self.find_Elements(material_loc))  # 获取素材名称列表
+        for i in name_list:
+            self.check_exist_in_lists(material, i)  # 验证搜索关键词是否存在于素材名称内
