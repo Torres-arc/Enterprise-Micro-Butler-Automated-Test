@@ -2,6 +2,10 @@ from selenium.webdriver.common.by import By
 
 
 class MaterialPicLoc:
+    # 客户营销tab
+    _btn_client_marketing_tab = (By.XPATH, '//span[text()="客户营销"]/..')
+    # 海报素材页面
+    _btn_material_others_page = (By.XPATH, '//li[text()=" 其他素材 "]')
     # 文本页面按钮
     _btn_pic_page = (By.XPATH, '//p[text()="图片"]/..')
 
