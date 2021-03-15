@@ -121,7 +121,7 @@ class TestMaterialPoster(MyTest, MaterialPosterPage, PublicPage, PublicMaterialP
         self.switch_to_current()
 
         self.delete_group(mpp['group'])  # 删除分组
-        self.check_not_exist_in_page(mpp['group'])  # 验证分组是否存在于页面内
+        self.assert_not_in_group(mpp['group'])  # 验证分组是否存在于页面内
         self.delete_group(mpp['group2'])
-        self.check_not_exist_in_page(mpp['group2'])
+        self.assert_not_in_group(mpp['group2'])
 
