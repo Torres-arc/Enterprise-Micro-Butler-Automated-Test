@@ -46,19 +46,21 @@ class MaterialWebLoc:
     # 网页操作面板展开元素
     _btn_web_operation = (By.CSS_SELECTOR, 'i[class*="more-operation"]')
     # 网页编辑按钮
-    _btn_edit_web = (By.CSS_SELECTOR, 'div#fatkun-drop-panel+ul li')
+    _btn_edit_web = (By.CSS_SELECTOR, 'ul[x-placement] li')
     # 主分类名称列表
     _texts_main_groups = (By.CSS_SELECTOR, 'div[class="main-catagory__wrap"] .catagory__list>span span')
     # 子分类名称列表
     _texts_child_groups = (By.CSS_SELECTOR, 'div[class="main-catagory__wrap sub__wrap"] .catagory__list>span span')
     # 网页内容列表
-    _texts_web_name = (By.CSS_SELECTOR, '.text-limit')
+    _texts_web_name = (By.CSS_SELECTOR, '.picture-text-title div')
 
     # 新建页面
     # 网页分类选择框
     _btn_select_group = (By.CSS_SELECTOR, 'div[aria-label] input[placeholder="请选择"]')
     # 网页名称输入框
     _input_web_name = (By.CSS_SELECTOR, 'input[placeholder="请输入标题"]')
+    # 正文输入框
+    _input_web_main_text = (By.CSS_SELECTOR, 'div[data-placeholder="请输入"]')
     # 网页组块
     _btn_text_groups = (By.CSS_SELECTOR, 'div[class="el-cascader-panel"] ul li')
     # 网页分类选择
