@@ -84,7 +84,7 @@ class TestMaterialPic(MyTest, MaterialPicPage, PublicPage, PublicMaterialPage):
         self.switch_to_current()
 
         self.enter_specify_group(mpp['group2'])  # 进入预定分组
-        self.select_all_and_delete_material()  # 选择并删除图片
+        self.select_all_and_delete_material(self._btn_all_select)  # 选择并删除图片
         self.check_not_exist_in_page(mpp['msg2'])  # 验证页面不存在目标图片
 
     def test_TestMaterialPic_07_createChildGroup(self):

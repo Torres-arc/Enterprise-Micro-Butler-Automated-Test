@@ -30,9 +30,9 @@ class PublicMaterialPage(BasePage, MaterialPosterLoc):
         self.click_element(self.find_Element(self._btn_move_group))  # 点击移动分组
         sleep(2)
 
-    def select_all_and_delete_material(self):
+    def select_all_and_delete_material(self, select_all_loc):
         # 全选并删除海报
-        self.click_element(self.find_Element(self._btn_all_select))  # 勾选全选框
+        self.click_element(self.find_Element(select_all_loc))  # 勾选全选框
         sleep(2)
         self.click_element(self.find_Element(self._btn_delete_poster))  # 点击删除海报
         sleep(2)

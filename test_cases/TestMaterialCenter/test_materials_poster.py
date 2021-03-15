@@ -83,7 +83,7 @@ class TestMaterialPoster(MyTest, MaterialPosterPage, PublicPage, PublicMaterialP
         self.switch_to_current()
 
         self.enter_specify_group(mpp['group2'])  # 进入预定分组
-        self.select_all_and_delete_material()  # 选择并删除海报
+        self.select_all_and_delete_material(self._btn_all_select)  # 选择并删除海报
         self.check_not_exist_in_page(mpp['group2'])  # 验证页面不存在目标海报
 
     def test_TestMaterialPoster_07_createChildGroup(self):

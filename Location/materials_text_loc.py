@@ -30,7 +30,7 @@ class MaterialTextLoc:
     # 点击具体分类
     _btn_select_specify_group = '//span[text()="{}"]/..'
     # 全选勾选框
-    _btn_all_select = (By.CSS_SELECTOR, '.header_sel_wrap span')
+    _btn_all_select_text = (By.CSS_SELECTOR, '.header_sel_wrap span')
     # 文本选择勾选框
     _btn_check_text = (By.CSS_SELECTOR, 'div[role="group"] label')
     # 分类删除按钮

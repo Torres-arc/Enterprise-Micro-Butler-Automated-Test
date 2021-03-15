@@ -84,7 +84,7 @@ class TestMaterialWeb(MyTest, MaterialWebPage, PublicPage, PublicMaterialPage):
         self.switch_to_current()
 
         self.enter_specify_group(mwp['group2'])  # 进入预定分组
-        self.select_all_and_delete_material()  # 选择并删除网页
+        self.select_all_and_delete_material(self._btn_all_select)  # 选择并删除网页
         self.check_not_exist_in_page(mwp['edited_title'])  # 验证页面不存在目标网页
 
     def test_TestMaterialWeb_07_createChildGroup(self):

@@ -55,7 +55,7 @@ class TestMaterialText(MyTest, MaterialTextPage, PublicPage, PublicMaterialPage)
         self.switch_to_current()
 
         self.search_by_input(self._input_search_text, mtp['msg'], self._btn_search)  # 输入关键词并搜索
-        self.select_all_and_move_group(self._btn_all_select)  # 选择并点击移动分组
+        self.select_all_and_move_group(self._btn_all_select_text)  # 选择并点击移动分组
         self.material_select_group(self._btn_input_move_group,
                                    (By.XPATH, self._text_select_move_group.format(mtp['group2'])),
                                    (By.XPATH, self._btn_select_move_group.format(mtp['group2'])))  # 选择分组
@@ -84,7 +84,7 @@ class TestMaterialText(MyTest, MaterialTextPage, PublicPage, PublicMaterialPage)
         self.switch_to_current()
 
         self.enter_specify_group(mtp['group2'])  # 进入预定分组
-        self.select_all_and_delete_material()  # 选择并删除文本
+        self.select_all_and_delete_material(self._btn_all_select_text)  # 选择并删除文本
         self.check_not_exist_in_page(mtp['msg2'])  # 验证页面不存在目标文本
 
     def test_TestMaterialText_07_createChildGroup(self):
