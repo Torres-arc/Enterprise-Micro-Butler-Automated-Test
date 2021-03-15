@@ -27,8 +27,6 @@ class MaterialPicLoc:
     _btn_select_specify_group = '//span[text()="{}"]/..'
     # 全选勾选框
     _btn_pic_all_select = (By.CSS_SELECTOR, '.action-part span')
-    # 图片选择勾选框
-    _btn_check_pic = (By.CSS_SELECTOR, 'div[role="group"] label')
     # 分类删除按钮
     _btn_delete_group = '//span[text()="{}"]/following-sibling::i'
     # 编辑完成按钮
@@ -49,8 +47,6 @@ class MaterialPicLoc:
     _btn_pic_div = (By.CSS_SELECTOR, 'div[class*="el-image"]')
     # 图片编辑按钮
     _btn_edit_pic = (By.CSS_SELECTOR, 'i[class*="el-icon-edit"]')
-    # 图片分类名称输入框
-    _input_pic_group_name = (By.CSS_SELECTOR, '.catagory__list input')
     # 主分类名称列表
     _texts_main_groups = (By.CSS_SELECTOR, 'div[class="main-catagory__wrap"] .catagory__list>span span')
     # 子分类名称列表
