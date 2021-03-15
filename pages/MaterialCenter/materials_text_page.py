@@ -5,7 +5,7 @@ from time import sleep
 
 class MaterialTextPage(BasePage, MaterialTextLoc):
     def switch_to_current(self):
-        # 切换至海报素材页面
+        # 切换至文本素材页面
         self.click_element(self.find_Element(self._btn_material_others_page))
         sleep(2)
         self.click_element(self.find_Element(self._btn_text_page))
