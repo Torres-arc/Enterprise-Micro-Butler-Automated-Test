@@ -35,7 +35,7 @@ class TestMaterialPoster(MyTest, MaterialPosterPage, PublicPage, PublicMaterialP
         self.material_select_group(self._btn_poster_groups,
                                    (By.XPATH, self._text_select_move_group.format(mpp['group'])),
                                    (By.XPATH, self._btn_select_poster_group.format(mpp['group'])))  # 选择海报分组
-        self.save_poster()  # 上传图片并保存海报
+        self.save_poster(mpp['path'])  # 上传图片并保存海报
         self.check_exist_in_page(mpp['poster'])  # 验证海报是否存在于页面内
 
     def test_TestMaterialPoster_03_searchPoster(self):

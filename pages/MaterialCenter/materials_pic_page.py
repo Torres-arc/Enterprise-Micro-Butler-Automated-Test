@@ -11,10 +11,10 @@ class MaterialPicPage(BasePage, MaterialPicLoc):
         self.click_element(self.find_Element(self._btn_pic_page))
         sleep(2)
 
-    def create_pic(self):
+    def create_pic(self, path):
         # 创建图片
         self.click_element(self.find_Element(self._btn_add_pic))
         sleep(2)
         self.click_element(self.find_Element(self._btn_upload_pic))
         sleep(2)
-        self.upload_file('\\materials\\pic\\photo.png')
+        self.upload_file(path)

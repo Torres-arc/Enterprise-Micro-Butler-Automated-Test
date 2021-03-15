@@ -31,7 +31,7 @@ class TestMaterialPic(MyTest, MaterialPicPage, PublicPage, PublicMaterialPage):
         self.switch_to_client_marketing_tab()  # 切换到客户营销
         self.switch_to_current()
 
-        self.create_pic()  # 开始创建图片
+        self.create_pic(mpp['path'])  # 开始创建图片
         self.material_select_group(self._btn_select_group,
                                    (By.XPATH, self._text_select_text_group.format(mpp['group'])),
                                    (By.XPATH, self._btn_select_text_group.format(mpp['group'])))  # 选择图片分组
