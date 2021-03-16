@@ -9,7 +9,7 @@ admin = get_config('3.1_www')  # 读取注册管理员账号
 ccp = get_config('client_code_page')
 
 
-class TestClient(MyTest, ClientCodePage, PublicPage):
+class TestClientCode(MyTest, ClientCodePage, PublicPage):
     """测试用户搜索（输入搜索）时，搜索结果是包含搜索关键词的"""
 
     def test_TestClientCode_01_searchByCreator(self):

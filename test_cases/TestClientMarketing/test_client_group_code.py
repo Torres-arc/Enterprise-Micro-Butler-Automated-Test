@@ -9,7 +9,7 @@ admin = get_config('3.1_www')  # 读取注册管理员账号
 cgcp = get_config('client_group_code_page')
 
 
-class TestClient(MyTest, ClientGroupCodePage, PublicPage):
+class TestClientGroupCode(MyTest, ClientGroupCodePage, PublicPage):
     def test_TestClientGroupCode_01_createCode(self):
         # 创建活码
         self.login(admin['username'], admin['password'])

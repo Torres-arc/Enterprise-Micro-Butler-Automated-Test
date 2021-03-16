@@ -11,7 +11,7 @@ search_start_time = get_config('client_group_page', 'start_time')
 search_end_time = get_config('client_group_page', 'end_time')
 
 
-class TestClient(MyTest, ClientGroup, PublicPage):
+class TestClientGroup(MyTest, ClientGroup, PublicPage):
     """测试用户搜索（输入搜索）时，搜索结果是包含搜索关键词的"""
     def test_TestClientGroup_01_searchByName(self):
         # 验证搜索后，搜索结果是包含搜索关键词的
