@@ -45,7 +45,7 @@ class ClientLoc:
     _btn_group_search = (By.XPATH, '//input[@placeholder="请输入关键词"]/../../../..//span[text()="查询"]')
     # 客户详情页面
     # 所有标签
-    _texts_full_tags = (By.XPATH, '//span[@class="el-tag el-tag--info el-tag--light"]')
+    _texts_full_tags = (By.XPATH, '//span[@class="el-tag el-tag--info el-tag--small el-tag--light"]')
     # 所有添加人
     _texts_full_adders = (By.CSS_SELECTOR, '.t-row ww-open-data[type="userName"]')
     # 返回按钮

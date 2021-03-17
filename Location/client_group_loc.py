@@ -18,7 +18,7 @@ class ClientGroupLoc:
     # 创建日期输入框（结束）
     _input_create_end_time = (By.XPATH, '//input[@placeholder="结束时间"]')
     # 客户群名列表
-    _texts_client_groups_names = (By.CSS_SELECTOR, 'tbody>tr>td:nth-child(2) .cell span')
+    _texts_client_groups_names = (By.CSS_SELECTOR, 'tbody>tr>td:nth-child(1) span')
     # 页面数
     _text_pages_number = (By.CSS_SELECTOR, '.el-pager li:last-child')
     # 下一页按钮
